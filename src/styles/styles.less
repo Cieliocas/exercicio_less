@@ -1,4 +1,10 @@
-// Mixins
+
+@import "maps.less";
+
+@breakpointTablet: ~"(max-width: 1023px)";
+@breakpointMobile: ~"(max-width: 767px)";
+
+// mixins criados
 .container-mixin() {
     max-width: 1024px;
     width: 100%;
@@ -12,7 +18,6 @@
     padding: 16px 0;
 }
 
-  // Base Styles
 * {
     margin: 0;
     padding: 0;
@@ -21,33 +26,42 @@
 }
 
 body {
-    background-color: #f5f6fa;
+    background-color: #colors[backgroundColor];
 }
 
 li {
     list-style: none;
 }
 
-  // Container
+
 .container {
     .container-mixin();
+
+    @media @breakpointTablet {
+        max-width: 80%;
+    }
 }
 
-  // Header
+
 header {
-    background-color: #182C61;
+    background-color: #colors[headerColor];
     position: sticky;
     top: 0;
     left: 0;
 
     .container {
         .flex-mixin();
+
+        @media @breakpointTablet {
+            max-width: 80%;
+        }
     }
 }
 
   // Menu
 .menu {
     .flex-mixin();
+    
     li {
         font-weight: bold;
         margin-left: 24px;
@@ -59,12 +73,11 @@ header {
     }
 }
 
-  // Section
+
 section {
     padding: 56px 0;
 }
 
-  // Products
 .products {
     margin-top: 40px;
     display: grid;
@@ -73,47 +86,34 @@ section {
     row-gap: 4%;
     width: 100%;
 
+    @media @breakpointTablet {
+        grid-template-columns: repeat(2, 48.5%);
+        column-gap: 3%;
+    }
+
+    @media @breakpointMobile {
+        display: block;
+    }
+
     .product-item {
         img {
-        width: 100%;
-        border-radius: 16px;
+            width: 100%;
+            border-radius: 16px;
         }
     }
 
     .product-button {
         display: block;
-        background-color: @colorTertiary;
-        color: #fff;
+        background-color: #colors[buttonColor];
+        color: #colors[textColor];
         text-align: center;
         padding: 8px 0;
         border-radius: 8px;
         margin-top: 8px;
         text-decoration: none;
 
-    &:hover {
-        background-color: #4cd137;
+        &:hover {
+            background-color: #colors[buttonColorHover];
         }
-    }
-}
-
-  // Media Queries
-@media screen and (max-width: 1023px) {
-    .container {
-        max-width: 80%;
-    }
-    
-.products {
-    grid-template-columns: repeat(2, 48.5%);
-    column-gap: 3%;
-    }
-}
-
-@media screen and (max-width: 767px) {
-    .products {
-        display: block;
-    }
-    
-    .product-item {
-        margin-bottom: 32px;
     }
 }
